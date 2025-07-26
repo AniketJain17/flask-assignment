@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_pymongo import PyMongo
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = "mongodb+srv://aniket_1:admin1@assignment.6rjyjf8.mongodb.net/?retryWrites=true&w=majority&appName=Assignment"
+app.config["MONGO_URI"] = "mongodb://localhost:27017/todo_db"
 mongo = PyMongo(app)
 
 @app.route('/submittodoitem', methods=['POST'])
