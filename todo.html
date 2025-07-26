@@ -1,77 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>To-Do Form</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
-  <div class="container mt-5">
-    <h2 class="text-center mb-4">To-Do Submission Form</h2>
-    <form id="todoForm">
-      <!-- Item ID -->
-      <div class="mb-3">
-        <label for="itemId" class="form-label">Item ID</label>
-        <input type="text" class="form-control" id="itemId" name="itemId" required>
-      </div>
+  <head>
+    <meta charset="UTF-8" />
+    <title>To-Do Form</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-light">
+    <div class="container mt-5">
+      <h2 class="text-center mb-4">To-Do Form</h2>
+      <form id="todoForm">
+        <!-- Item ID -->
+        <div class="mb-3">
+          <label for="itemId" class="form-label">Item ID</label>
+          <input
+            type="text"
+            class="form-control"
+            id="itemId"
+            name="itemId"
+            required
+          />
+        </div>
 
-      <!-- Item UUID -->
-      <div class="mb-3">
-        <label for="itemUuid" class="form-label">Item UUID</label>
-        <input type="text" class="form-control" id="itemUuid" name="itemUuid" required>
-      </div>
+        <!-- Item UUID -->
+        <div class="mb-3">
+          <label for="itemUuid" class="form-label">Item UUID</label>
+          <input
+            type="text"
+            class="form-control"
+            id="itemUuid"
+            name="itemUuid"
+            required
+          />
+        </div>
 
-      <!-- Item Hash -->
-      <div class="mb-3">
-        <label for="itemHash" class="form-label">Item Hash</label>
-        <input type="text" class="form-control" id="itemHash" name="itemHash" required>
-      </div>
+        <!-- Item Hash -->
+        <div class="mb-3">
+          <label for="itemHash" class="form-label">Item Hash</label>
+          <input
+            type="text"
+            class="form-control"
+            id="itemHash"
+            name="itemHash"
+            required
+          />
+        </div>
 
-      <!-- Item Name -->
-      <div class="mb-3">
-        <label for="itemName" class="form-label">Item Name</label>
-        <input type="text" class="form-control" id="itemName" name="itemName" required>
-      </div>
+        <!-- Item Name -->
+        <div class="mb-3">
+          <label for="itemName" class="form-label">Item Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="itemName"
+            name="itemName"
+            required
+          />
+        </div>
 
-      <!-- Item Description -->
-      <div class="mb-3">
-        <label for="itemDescription" class="form-label">Item Description</label>
-        <textarea class="form-control" id="itemDescription" name="itemDescription" rows="3" required></textarea>
-      </div>
+        <!-- Item Description -->
+        <div class="mb-3">
+          <label for="itemDescription" class="form-label"
+            >Item Description</label
+          >
+          <textarea
+            class="form-control"
+            id="itemDescription"
+            name="itemDescription"
+            rows="3"
+            required
+          ></textarea>
+        </div>
 
-      <button type="submit" class="btn btn-primary">Submit To-Do</button>
-    </form>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
 
-    <div id="responseMsg" class="mt-3"></div>
-  </div>
+      <div id="responseMsg" class="mt-3"></div>
+    </div>
 
-  <script>
-    document.getElementById('todoForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
+    <script>
+      document
+        .getElementById("todoForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
 
-      const data = {
-        itemId: document.getElementById('itemId').value,
-        itemUuid: document.getElementById('itemUuid').value,
-        itemHash: document.getElementById('itemHash').value,
-        itemName: document.getElementById('itemName').value,
-        itemDescription: document.getElementById('itemDescription').value
-      };
+          const data = {
+            itemId: document.getElementById("itemId").value,
+            itemUuid: document.getElementById("itemUuid").value,
+            itemHash: document.getElementById("itemHash").value,
+            itemName: document.getElementById("itemName").value,
+            itemDescription: document.getElementById("itemDescription").value,
+          };
 
-      const res = await fetch('/submittodoitem', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
+          const response = await fetch("/submittodoitem", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
 
-      const result = await res.json();
-      document.getElementById('responseMsg').innerHTML = `
-        <div class="alert alert-${res.ok ? 'success' : 'danger'}">
-          ${result.message || (res.ok ? 'Submitted successfully!' : 'Submission failed')}
+          const result = await response.json();
+          document.getElementById("responseMsg").innerHTML = `
+        <div class="alert alert-${response.ok ? "success" : "danger"}">
+          ${result.message || (response.ok ? "Submitted!" : "Error submitting")}
         </div>
       `;
-    });
-  </script>
-</body>
+        });
+    </script>
+  </body>
 </html>
